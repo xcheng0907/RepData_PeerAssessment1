@@ -32,8 +32,15 @@ wkd <- function(x) {
 days = as.vector(sapply(days, wkd))
 data2$wkd = as.factor(days)
 
-
+png(filename="WKDvsWKEND.png", 
+    units="in", 
+    width=6, 
+    height=6, 
+    pointsize=18, 
+    res=100)
 data3 = aggregate(steps ~ wkd + interval, data=data2, FUN=mean)
 library(lattice)
 xyplot(steps~interval | wkd, data=data3,
        main="Steps for weekdays and weekends", xlab="interval",  ylab="steps",layout=c(1,2),type=c("l","l"))
+dev.off()
+
