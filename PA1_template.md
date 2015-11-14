@@ -65,19 +65,23 @@ str(data)
 
 ### What is mean total number of steps taken per day?
 
-* the total number of steps taken per day
+* to get the total number of steps taken per day, we first build a dataset
 
 ```r
 stepDay = aggregate(data$steps, list(data$date), sum)
 colnames(stepDay) = c("date", "step")
 stepDay$date = as.Date(stepDay$date)
-str(stepDay)
+head(stepDay)
 ```
 
 ```
-## 'data.frame':	61 obs. of  2 variables:
-##  $ date: Date, format: "2012-10-01" "2012-10-02" ...
-##  $ step: int  NA 126 11352 12116 13294 15420 11015 NA 12811 9900 ...
+##         date  step
+## 1 2012-10-01    NA
+## 2 2012-10-02   126
+## 3 2012-10-03 11352
+## 4 2012-10-04 12116
+## 5 2012-10-05 13294
+## 6 2012-10-06 15420
 ```
 
 * A histogram of the steps per day:
@@ -92,8 +96,19 @@ hist(stepDay$step, 20, main="Number of Steps per day", xlab="steps", ylab="numbe
 * the mean and median of the total number of steps taken per day:
 
 ```r
-meanStep = mean(stepDay$step, na.rm=T)
-medStep = median(stepDay$step, na.rm=T)
+(meanStep = mean(stepDay$step, na.rm=T))
+```
+
+```
+## [1] 10766.19
+```
+
+```r
+(medStep = median(stepDay$step, na.rm=T))
+```
+
+```
+## [1] 10765
 ```
 Based on the calculation above, the mean steps per day is 10766.19, and the median steps per day is 10765.
 
@@ -104,13 +119,17 @@ Based on the calculation above, the mean steps per day is 10766.19, and the medi
 
 ```r
 step5m = aggregate(steps ~ interval, data=data, FUN=mean)
-str(step5m)
+head(step5m)
 ```
 
 ```
-## 'data.frame':	288 obs. of  2 variables:
-##  $ interval: int  0 5 10 15 20 25 30 35 40 45 ...
-##  $ steps   : num  1.717 0.3396 0.1321 0.1509 0.0755 ...
+##   interval     steps
+## 1        0 1.7169811
+## 2        5 0.3396226
+## 3       10 0.1320755
+## 4       15 0.1509434
+## 5       20 0.0754717
+## 6       25 2.0943396
 ```
 
 * Make a time series plot
@@ -128,7 +147,11 @@ The maximum number of steps on average is the interval of 835, and the time is 1
 * The total number of missing values
 
 ```r
-numNAs = sum(is.na(data$steps))
+(numNAs = sum(is.na(data$steps)))
+```
+
+```
+## [1] 2304
 ```
 Thus, the total number of missing values is 2304 which is 13.11% of all the data.
 
@@ -164,13 +187,17 @@ Using the new data set with missing values filled in:
 stepDay = aggregate(data2$steps, list(data2$date), sum)
 colnames(stepDay) = c("date", "step")
 stepDay$date = as.Date(stepDay$date)
-str(stepDay)
+head(stepDay)
 ```
 
 ```
-## 'data.frame':	61 obs. of  2 variables:
-##  $ date: Date, format: "2012-10-01" "2012-10-02" ...
-##  $ step: int  10641 126 11352 12116 13294 15420 11015 10641 12811 9900 ...
+##         date  step
+## 1 2012-10-01 10641
+## 2 2012-10-02   126
+## 3 2012-10-03 11352
+## 4 2012-10-04 12116
+## 5 2012-10-05 13294
+## 6 2012-10-06 15420
 ```
 
 * A histogram of the steps per day:
@@ -185,8 +212,19 @@ hist(stepDay$step, 20, main="Number of Steps per day ( missing values filled wit
 * the mean and median of the total number of steps taken per day:
 
 ```r
-meanStep = mean(stepDay$step, na.rm=T)
-medStep = median(stepDay$step, na.rm=T)
+(meanStep = mean(stepDay$step, na.rm=T))
+```
+
+```
+## [1] 10749.77
+```
+
+```r
+(medStep = median(stepDay$step, na.rm=T))
+```
+
+```
+## [1] 10641
 ```
 Based on the calculation above, the mean steps per day is 10749.77, and the median steps per day is 10641.
 Generally, the new values are lower than the data set with missing values. This may be because of the filled values are the average steps of intervals, and there are more available values for the mean and median.

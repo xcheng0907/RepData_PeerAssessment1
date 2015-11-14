@@ -44,3 +44,5 @@ xyplot(steps~interval | wkd, data=data3,
        main="Steps for weekdays and weekends", xlab="interval",  ylab="steps",layout=c(1,2),type=c("l","l"))
 dev.off()
 
+library(knitr)
+knit2html("PA1_template.Rmd")
